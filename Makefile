@@ -46,3 +46,4 @@ docker-build: ensure-command-docker
 	 --build-arg VERSION=$(VERSION)\
 	 --tag=$(PROJECT):$(VERSION)\
 	 --tag=$(PROJECT):latest\
+	 .
