@@ -54,6 +54,12 @@ of any firewall rules as you see fit
 - Implement LRU / autoTTL key expiry
 - Introduce singleflight pattern to avoid cache stampeding
 
+
+## github-action
+
+- On every push to github, it runs linter / test and docker build
+- #TODO upload the docker build to GCR (but it requires a paid gcr account)
+
 ## Build
 
 - `make build` puts the binary executable in `$root/build` folder.
