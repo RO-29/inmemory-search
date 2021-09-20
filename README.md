@@ -102,6 +102,9 @@ service/bukukas-inmemory-http unchanged
 
 ## prometheus
 - prometheus folder contains necessary promethus artifacts
+** Its running in a sepearate port so its not able to collect metrics from main app right now but all setup is done for it
+
+I didn't wanted to mix prod port with metrics port and couldn't figure out *yet* how to run them on different ports
 
 ## Postman Code for easy accesibilty
 
