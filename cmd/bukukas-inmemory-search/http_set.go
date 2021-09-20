@@ -76,5 +76,8 @@ func (h *setterHandler) decodeRequestBody(req *http.Request) (*setterHTTPHandler
 	if err != nil {
 		return nil, errors.Wrap(err, "decode")
 	}
+	if v.Key == "" {
+		return nil, errors.New("can not set empty key")
+	}
 	return v, nil
 }

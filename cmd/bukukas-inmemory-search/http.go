@@ -90,11 +90,11 @@ func registerHTTPHandlers(r *mux.Router, hs *httpHandlers) error {
 			configure: configureGetHTTPRoute,
 			handler:   hs.getterHandler,
 		},
-		// {
-		// 	name: "search",
-		// 	// configure: configureRealtimeStatsHTTPRoute,
-		// 	// handler:   hs.RealtimeStatsHandler,
-		// },
+		{
+			name:      "search",
+			configure: configureSearchHTTPRoute,
+			handler:   hs.searchHandler,
+		},
 	} {
 		h, err := v.handler()
 		if err != nil {
@@ -108,12 +108,14 @@ func registerHTTPHandlers(r *mux.Router, hs *httpHandlers) error {
 type httpHandlers struct {
 	setterHandler func() (http.Handler, error)
 	getterHandler func() (http.Handler, error)
+	searchHandler func() (http.Handler, error)
 }
 
 func newHTTPHandlers(dic *diContainer) *httpHandlers {
 	return &httpHandlers{
 		setterHandler: newSetterHandlerDIProvider(dic),
 		getterHandler: newGetterHandlerDIProvider(dic),
+		searchHandler: newSearchHandlerDIProvider(dic),
 	}
 }
 
