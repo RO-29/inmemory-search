@@ -28,18 +28,20 @@ func run() error {
 	log.Printf("running version: %#v, app: %#v", version, appName)
 	flg := getFlags()
 	ctx := context.Background()
+	initPromethus()
 	dic := newDIContainer(flg)
 	err := runHTTPServer(ctx, dic, flg.http)
 	if err != nil {
 		return errors.Wrap(err, "HTTP server")
 	}
+	return nil
+}
 
+func initPromethus() {
 	promRoute := mux.NewRouter()
 	promRoute.Path("/prometheus").Handler(promhttp.Handler())
 	fmt.Println("Serving requests on port 9000 for promethus")
 	go func() {
 		_ = http.ListenAndServe(":9000", promRoute)
 	}()
-
-	return nil
 }

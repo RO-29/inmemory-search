@@ -33,6 +33,7 @@ bukukas-inmemory-search/cmd/bukukas-inmemory-search/http_set.go:49:	handle				10
 bukukas-inmemory-search/cmd/bukukas-inmemory-search/http_set.go:73:	decodeRequestBody		85.7%
 bukukas-inmemory-search/cmd/bukukas-inmemory-search/main.go:20:		main				0.0%
 bukukas-inmemory-search/cmd/bukukas-inmemory-search/main.go:27:		run				0.0%
+bukukas-inmemory-search/cmd/bukukas-inmemory-search/main.go:40:		initPromethus			0.0%
 bukukas-inmemory-search/inmemorycache/cache.go:17:			New				100.0%
 bukukas-inmemory-search/inmemorycache/cache.go:24:			NewDIProvider			100.0%
 bukukas-inmemory-search/inmemorycache/cache.go:42:			Set				100.0%
@@ -45,4 +46,4 @@ bukukas-inmemory-search/inmemorycache/trie.go:25:			Get				100.0%
 bukukas-inmemory-search/inmemorycache/trie.go:38:			PrefixMatch			100.0%
 bukukas-inmemory-search/inmemorycache/trie.go:64:			isLastNode			100.0%
 bukukas-inmemory-search/inmemorycache/trie.go:73:			find				89.5%
-total:									(statements)			84.2%
+total:									(statements)			83.8%

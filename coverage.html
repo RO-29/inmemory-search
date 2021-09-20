@@ -639,20 +639,22 @@ func run() error <span class="cov0" title="0">{
         log.Printf("running version: %#v, app: %#v", version, appName)
         flg := getFlags()
         ctx := context.Background()
+        initPromethus()
         dic := newDIContainer(flg)
         err := runHTTPServer(ctx, dic, flg.http)
         if err != nil </span><span class="cov0" title="0">{
                 return errors.Wrap(err, "HTTP server")
         }</span>
+        <span class="cov0" title="0">return nil</span>
+}
 
-        <span class="cov0" title="0">promRoute := mux.NewRouter()
+func initPromethus() <span class="cov0" title="0">{
+        promRoute := mux.NewRouter()
         promRoute.Path("/prometheus").Handler(promhttp.Handler())
         fmt.Println("Serving requests on port 9000 for promethus")
         go func() </span><span class="cov0" title="0">{
                 _ = http.ListenAndServe(":9000", promRoute)
         }</span>()
-
-        <span class="cov0" title="0">return nil</span>
 }
 </pre>
 		
