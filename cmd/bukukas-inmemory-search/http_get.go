@@ -70,10 +70,10 @@ func (h *getterHandler) handle(_ context.Context, w http.ResponseWriter, req *ht
 			req.Context(),
 			w,
 			req,
-			errors.New(fmt.Sprintf("key %s not found!", key)),
+			errors.New(fmt.Sprintf("key '%v' not found!", key)),
 			&httpErrorResponse{
 				Code:    http.StatusNotFound,
-				Message: errors.New(fmt.Sprintf("key %s not found!", key)).Error(),
+				Message: errors.New(fmt.Sprintf("key '%v' not found!", key)).Error(),
 			})
 		return
 	}
@@ -83,7 +83,6 @@ func (h *getterHandler) handle(_ context.Context, w http.ResponseWriter, req *ht
 		Key:   key,
 		Value: value,
 	})
-	_, _ = w.Write(buf.Bytes())
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte("accepted"))
+	_, _ = w.Write(buf.Bytes())
 }
