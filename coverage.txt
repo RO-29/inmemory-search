@@ -33,11 +33,11 @@ bukukas-inmemory-search/cmd/bukukas-inmemory-search/http_set.go:49:	handle				10
 bukukas-inmemory-search/cmd/bukukas-inmemory-search/http_set.go:73:	decodeRequestBody		85.7%
 bukukas-inmemory-search/cmd/bukukas-inmemory-search/main.go:16:		main				0.0%
 bukukas-inmemory-search/cmd/bukukas-inmemory-search/main.go:23:		run				0.0%
-bukukas-inmemory-search/cmd/bukukas-inmemory-search/prometheus.go:21:	NewResponseWriter		0.0%
-bukukas-inmemory-search/cmd/bukukas-inmemory-search/prometheus.go:25:	WriteHeader			0.0%
-bukukas-inmemory-search/cmd/bukukas-inmemory-search/prometheus.go:51:	prometheusMiddleware		0.0%
-bukukas-inmemory-search/cmd/bukukas-inmemory-search/prometheus.go:67:	initPromethus			0.0%
-bukukas-inmemory-search/cmd/bukukas-inmemory-search/prometheus.go:81:	registerPrometheus		0.0%
+bukukas-inmemory-search/cmd/bukukas-inmemory-search/prometheus.go:37:	prometheusMiddleware		0.0%
+bukukas-inmemory-search/cmd/bukukas-inmemory-search/prometheus.go:53:	initPromethus			0.0%
+bukukas-inmemory-search/cmd/bukukas-inmemory-search/prometheus.go:63:	init				66.7%
+bukukas-inmemory-search/cmd/bukukas-inmemory-search/prometheus.go:79:	NewResponseWriter		0.0%
+bukukas-inmemory-search/cmd/bukukas-inmemory-search/prometheus.go:83:	WriteHeader			0.0%
 bukukas-inmemory-search/inmemorycache/cache.go:17:			New				100.0%
 bukukas-inmemory-search/inmemorycache/cache.go:24:			NewDIProvider			100.0%
 bukukas-inmemory-search/inmemorycache/cache.go:42:			Set				100.0%
@@ -50,4 +50,4 @@ bukukas-inmemory-search/inmemorycache/trie.go:25:			Get				100.0%
 bukukas-inmemory-search/inmemorycache/trie.go:38:			PrefixMatch			100.0%
 bukukas-inmemory-search/inmemorycache/trie.go:64:			isLastNode			100.0%
 bukukas-inmemory-search/inmemorycache/trie.go:73:			find				89.5%
-total:									(statements)			76.0%
+total:									(statements)			79.3%

@@ -71,7 +71,7 @@
 				
 				<option value="file7">bukukas-inmemory-search/cmd/bukukas-inmemory-search/main.go (0.0%)</option>
 				
-				<option value="file8">bukukas-inmemory-search/cmd/bukukas-inmemory-search/prometheus.go (0.0%)</option>
+				<option value="file8">bukukas-inmemory-search/cmd/bukukas-inmemory-search/prometheus.go (16.0%)</option>
 				
 				<option value="file9">bukukas-inmemory-search/inmemorycache/cache.go (100.0%)</option>
 				
@@ -662,20 +662,6 @@ import (
         "github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
-type responseWriter struct {
-        http.ResponseWriter
-        statusCode int
-}
-
-func NewResponseWriter(w http.ResponseWriter) *responseWriter <span class="cov0" title="0">{
-        return &amp;responseWriter{w, http.StatusOK}
-}</span>
-
-func (rw *responseWriter) WriteHeader(code int) <span class="cov0" title="0">{
-        rw.statusCode = code
-        rw.ResponseWriter.WriteHeader(code)
-}</span>
-
 var totalRequests = prometheus.NewCounterVec(
         prometheus.CounterOpts{
                 Name: "http_requests_total",
@@ -714,11 +700,7 @@ func prometheusMiddleware(next http.Handler) http.Handler <span class="cov0" tit
 }
 
 func initPromethus() <span class="cov0" title="0">{
-        err := registerPrometheus()
-        if err != nil </span><span class="cov0" title="0">{
-                log.Fatal(err)
-        }</span>
-        <span class="cov0" title="0">promRoute := mux.NewRouter()
+        promRoute := mux.NewRouter()
         promRoute.Use(prometheusMiddleware)
         promRoute.Path("/prometheus").Handler(promhttp.Handler())
         fmt.Println("Serving requests on port :9000 for promethus")
@@ -727,21 +709,30 @@ func initPromethus() <span class="cov0" title="0">{
         }</span>()
 }
 
-func registerPrometheus() error <span class="cov0" title="0">{
+func init() <span class="cov8" title="1">{
         err := prometheus.Register(totalRequests)
         if err != nil </span><span class="cov0" title="0">{
-                return errors.Wrap(err, "total requests")
+                log.Fatal(errors.Wrap(err, "total requests"))
         }</span>
-        <span class="cov0" title="0">err = prometheus.Register(responseStatus)
+        <span class="cov8" title="1">err = prometheus.Register(responseStatus)
         if err != nil </span><span class="cov0" title="0">{
-                return errors.Wrap(err, "response status")
+                log.Fatal(errors.Wrap(err, "response status"))
         }</span>
-        <span class="cov0" title="0">err = prometheus.Register(httpDuration)
-        if err != nil </span><span class="cov0" title="0">{
-                return errors.Wrap(err, "http duration")
-        }</span>
-        <span class="cov0" title="0">return nil</span>
 }
+
+type responseWriter struct {
+        http.ResponseWriter
+        statusCode int
+}
+
+func NewResponseWriter(w http.ResponseWriter) *responseWriter <span class="cov0" title="0">{
+        return &amp;responseWriter{w, http.StatusOK}
+}</span>
+
+func (rw *responseWriter) WriteHeader(code int) <span class="cov0" title="0">{
+        rw.statusCode = code
+        rw.ResponseWriter.WriteHeader(code)
+}</span>
 </pre>
 		
 		<pre class="file" id="file9" style="display: none">package inmemorycache

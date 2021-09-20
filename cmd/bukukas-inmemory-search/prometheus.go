@@ -13,20 +13,6 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
-type responseWriter struct {
-	http.ResponseWriter
-	statusCode int
-}
-
-func NewResponseWriter(w http.ResponseWriter) *responseWriter {
-	return &responseWriter{w, http.StatusOK}
-}
-
-func (rw *responseWriter) WriteHeader(code int) {
-	rw.statusCode = code
-	rw.ResponseWriter.WriteHeader(code)
-}
-
 var totalRequests = prometheus.NewCounterVec(
 	prometheus.CounterOpts{
 		Name: "http_requests_total",
@@ -65,10 +51,6 @@ func prometheusMiddleware(next http.Handler) http.Handler {
 }
 
 func initPromethus() {
-	err := registerPrometheus()
-	if err != nil {
-		log.Fatal(err)
-	}
 	promRoute := mux.NewRouter()
 	promRoute.Use(prometheusMiddleware)
 	promRoute.Path("/prometheus").Handler(promhttp.Handler())
@@ -78,18 +60,27 @@ func initPromethus() {
 	}()
 }
 
-func registerPrometheus() error {
+func init() {
 	err := prometheus.Register(totalRequests)
 	if err != nil {
-		return errors.Wrap(err, "total requests")
+		log.Fatal(errors.Wrap(err, "total requests"))
 	}
 	err = prometheus.Register(responseStatus)
 	if err != nil {
-		return errors.Wrap(err, "response status")
+		log.Fatal(errors.Wrap(err, "response status"))
 	}
-	err = prometheus.Register(httpDuration)
-	if err != nil {
-		return errors.Wrap(err, "http duration")
-	}
-	return nil
+}
+
+type responseWriter struct {
+	http.ResponseWriter
+	statusCode int
+}
+
+func NewResponseWriter(w http.ResponseWriter) *responseWriter {
+	return &responseWriter{w, http.StatusOK}
+}
+
+func (rw *responseWriter) WriteHeader(code int) {
+	rw.statusCode = code
+	rw.ResponseWriter.WriteHeader(code)
 }
