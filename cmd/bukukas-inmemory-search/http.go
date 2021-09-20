@@ -83,7 +83,7 @@ func registerHTTPHandlers(r *mux.Router, hs *httpHandlers) error {
 		{
 			name:      "set",
 			configure: configureSetHTTPRoute,
-			// handler:
+			handler:   hs.setterHandler,
 		},
 		{
 			name: "get",
@@ -106,7 +106,7 @@ func registerHTTPHandlers(r *mux.Router, hs *httpHandlers) error {
 }
 
 type httpHandlers struct {
-	setterHandler func() http.Handler
+	setterHandler func() (http.Handler, error)
 }
 
 func newHTTPHandlers(dic *diContainer) *httpHandlers {
@@ -129,4 +129,12 @@ func onHTTPError(_ context.Context, w http.ResponseWriter, _ *http.Request, err 
 type httpErrorResponse struct {
 	Message string `json:"message"`
 	Code    int    `json:"-"`
+}
+
+func reverse(s string) string {
+	r := []rune(s)
+	for i, j := 0, len(r)-1; i < len(r)/2; i, j = i+1, j-1 {
+		r[i], r[j] = r[j], r[i]
+	}
+	return string(r)
 }

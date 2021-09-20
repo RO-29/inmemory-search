@@ -20,16 +20,16 @@ func newSetterHandler(dic *diContainer) *setterHandler {
 	}
 }
 
-func newSetterHandlerDIProvider(dic *diContainer) func() http.Handler {
+func newSetterHandlerDIProvider(dic *diContainer) func() (http.Handler, error) {
 	var s *setterHandler
 	var mu sync.Mutex
-	return func() http.Handler {
+	return func() (http.Handler, error) {
 		mu.Lock()
 		defer mu.Unlock()
 		if s == nil {
 			s = newSetterHandler(dic)
 		}
-		return s
+		return s, nil
 	}
 }
 
@@ -60,7 +60,12 @@ func (h *setterHandler) handle(_ context.Context, w http.ResponseWriter, req *ht
 			})
 		return
 	}
+	// set key in prefix trie
 	h.set(body.Key, body.Value)
+
+	// set reverse key in prefix trie for suffix search without "data"
+	h.set(reverse(body.Key), nil)
+
 	w.WriteHeader(http.StatusCreated)
 	_, _ = w.Write([]byte("accepted"))
 }
