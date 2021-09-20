@@ -51,18 +51,6 @@ type getterHTTPHandlerResponseBody struct {
 func (h *getterHandler) handle(_ context.Context, w http.ResponseWriter, req *http.Request) {
 	vars := mux.Vars(req)
 	key := vars["key"]
-	if key == "" {
-		onHTTPError(
-			req.Context(),
-			w,
-			req,
-			errors.New("empty key"),
-			&httpErrorResponse{
-				Code:    http.StatusBadRequest,
-				Message: errors.New("empty key").Error(),
-			})
-		return
-	}
 	// get value from prefix trie
 	value, ok := h.get(key)
 	if !ok {
