@@ -21,6 +21,19 @@ func New() Cache {
 	}
 }
 
+func NewDIProvider() func() Cache {
+	var c Cache
+	var mu sync.Mutex
+	return func() Cache {
+		mu.Lock()
+		defer mu.Unlock()
+		if c == nil {
+			c = New()
+		}
+		return c
+	}
+}
+
 type lock struct {
 	mu sync.Mutex
 	Cache
