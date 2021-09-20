@@ -82,5 +82,23 @@ of any firewall rules as you see fit
 ## Kubernetes Specs
 - k8s folder contains all the specs file as asked
 
+:warning: I am using latest minkube in local so if you use lower version, some yaml config may not work for you :warning:
+```
+kubectl version
+Client Version: version.Info{Major:"1", Minor:"21", GitVersion:"v1.21.2", GitCommit:"092fbfbf53427de67cac1e9fa54aaa09a28371d7", GitTreeState:"clean", BuildDate:"2021-06-16T12:59:11Z", GoVersion:"go1.16.5", Compiler:"gc", Platform:"darwin/amd64"}
+Server Version: version.Info{Major:"1", Minor:"22", GitVersion:"v1.22.1", GitCommit:"632ed300f2c34f6d6d15ca4cef3d3c7073412212", GitTreeState:"clean", BuildDate:"2021-08-19T15:39:34Z", GoVersion:"go1.16.7", Compiler:"gc", Platform:"linux/amd64"}
+```
+
+:bulb: Working k8 config in my local :bulb:
+```
+kubectl apply -f k8s/
+
+
+namespace/bukukas-inmemory-production unchanged
+deployment.apps/bukukas-inmemory-http configured
+ingress.networking.k8s.io/bukukas-inmemory-ingress unchanged
+service/bukukas-inmemory-http unchanged
+```
+
 ## Prometheus
 - prometheus folder contains necessary promethus artifacts
