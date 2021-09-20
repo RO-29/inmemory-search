@@ -95,6 +95,11 @@ func registerHTTPHandlers(r *mux.Router, hs *httpHandlers) error {
 			configure: configureSearchHTTPRoute,
 			handler:   hs.searchHandler,
 		},
+		{
+			name:      "ping",
+			configure: configurePingHTTPRoute,
+			handler:   hs.pingHandler,
+		},
 	} {
 		h, err := v.handler()
 		if err != nil {
@@ -109,6 +114,7 @@ type httpHandlers struct {
 	setterHandler func() (http.Handler, error)
 	getterHandler func() (http.Handler, error)
 	searchHandler func() (http.Handler, error)
+	pingHandler   func() (http.Handler, error)
 }
 
 func newHTTPHandlers(dic *diContainer) *httpHandlers {
@@ -116,6 +122,7 @@ func newHTTPHandlers(dic *diContainer) *httpHandlers {
 		setterHandler: newSetterHandlerDIProvider(dic),
 		getterHandler: newGetterHandlerDIProvider(dic),
 		searchHandler: newSearchHandlerDIProvider(dic),
+		pingHandler:   newPingHandlerDIProvider(),
 	}
 }
 
