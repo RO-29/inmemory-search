@@ -613,9 +613,13 @@ func (h *setterHandler) decodeRequestBody(req *http.Request) (*setterHTTPHandler
 
 import (
         "context"
+        "fmt"
         "log"
+        "net/http"
 
+        "github.com/gorilla/mux"
         "github.com/pkg/errors"
+        "github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 var version = "dev"
@@ -640,6 +644,14 @@ func run() error <span class="cov0" title="0">{
         if err != nil </span><span class="cov0" title="0">{
                 return errors.Wrap(err, "HTTP server")
         }</span>
+
+        <span class="cov0" title="0">promRoute := mux.NewRouter()
+        promRoute.Path("/prometheus").Handler(promhttp.Handler())
+        fmt.Println("Serving requests on port 9000 for promethus")
+        go func() </span><span class="cov0" title="0">{
+                _ = http.ListenAndServe(":9000", promRoute)
+        }</span>()
+
         <span class="cov0" title="0">return nil</span>
 }
 </pre>

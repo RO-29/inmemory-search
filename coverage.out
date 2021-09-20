@@ -47,7 +47,6 @@ bukukas-inmemory-search/inmemorycache/cache.go:30.15,32.4 1 1
 bukukas-inmemory-search/inmemorycache/cache.go:42.51,46.2 3 1
 bukukas-inmemory-search/inmemorycache/cache.go:48.64,53.2 4 1
 bukukas-inmemory-search/inmemorycache/cache.go:55.63,60.2 4 1
-bukukas-inmemory-search/cmd/bukukas-inmemory-search/flags.go:13.24,22.2 6 0
 bukukas-inmemory-search/cmd/bukukas-inmemory-search/http.go:15.76,17.16 2 0
 bukukas-inmemory-search/cmd/bukukas-inmemory-search/http.go:20.2,26.16 4 0
 bukukas-inmemory-search/cmd/bukukas-inmemory-search/http.go:29.2,30.12 2 0
@@ -130,9 +129,12 @@ bukukas-inmemory-search/cmd/bukukas-inmemory-search/http_set.go:79.2,79.17 1 1
 bukukas-inmemory-search/cmd/bukukas-inmemory-search/http_set.go:82.2,82.15 1 1
 bukukas-inmemory-search/cmd/bukukas-inmemory-search/http_set.go:76.16,78.3 1 0
 bukukas-inmemory-search/cmd/bukukas-inmemory-search/http_set.go:79.17,81.3 1 1
-bukukas-inmemory-search/cmd/bukukas-inmemory-search/main.go:16.13,18.16 2 0
-bukukas-inmemory-search/cmd/bukukas-inmemory-search/main.go:18.16,20.3 1 0
-bukukas-inmemory-search/cmd/bukukas-inmemory-search/main.go:23.18,29.16 6 0
-bukukas-inmemory-search/cmd/bukukas-inmemory-search/main.go:32.2,32.12 1 0
-bukukas-inmemory-search/cmd/bukukas-inmemory-search/main.go:29.16,31.3 1 0
+bukukas-inmemory-search/cmd/bukukas-inmemory-search/main.go:20.13,22.16 2 0
+bukukas-inmemory-search/cmd/bukukas-inmemory-search/main.go:22.16,24.3 1 0
+bukukas-inmemory-search/cmd/bukukas-inmemory-search/main.go:27.18,33.16 6 0
+bukukas-inmemory-search/cmd/bukukas-inmemory-search/main.go:37.2,40.12 4 0
+bukukas-inmemory-search/cmd/bukukas-inmemory-search/main.go:44.2,44.12 1 0
+bukukas-inmemory-search/cmd/bukukas-inmemory-search/main.go:33.16,35.3 1 0
+bukukas-inmemory-search/cmd/bukukas-inmemory-search/main.go:40.12,42.3 1 0
 bukukas-inmemory-search/cmd/bukukas-inmemory-search/di.go:19.46,28.2 6 1
+bukukas-inmemory-search/cmd/bukukas-inmemory-search/flags.go:13.24,22.2 6 0
