@@ -102,3 +102,36 @@ service/bukukas-inmemory-http unchanged
 
 ## Prometheus
 - prometheus folder contains necessary promethus artifacts
+
+## Postman Code for easy accesibilty
+
+- Set
+```
+curl -X POST \
+  http://localhost:8080/set \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{
+	"key":"rohitJ",
+	"value":"2929"
+}'
+````
+- Get
+```
+curl -X GET \
+  http://localhost:8080/get/123 \
+  -H 'cache-control: no-cache'
+```
+
+- Search Suffix
+```
+curl -X GET \
+  'http://localhost:8080/search?suffix=tJ' \
+  -H 'cache-control: no-cache'
+```
+- Search Prefix
+```
+curl -X GET \
+  'http://localhost:8080/search?prefix=ro' \
+  -H 'cache-control: no-cache'
+```
