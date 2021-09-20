@@ -90,11 +90,11 @@ func registerHTTPHandlers(r *mux.Router, hs *httpHandlers) error {
 			configure: configureGetHTTPRoute,
 			handler:   hs.getterHandler,
 		},
-		{
-			name: "search",
-			// configure: configureRealtimeStatsHTTPRoute,
-			// handler:   hs.RealtimeStatsHandler,
-		},
+		// {
+		// 	name: "search",
+		// 	// configure: configureRealtimeStatsHTTPRoute,
+		// 	// handler:   hs.RealtimeStatsHandler,
+		// },
 	} {
 		h, err := v.handler()
 		if err != nil {
