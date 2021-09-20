@@ -45,7 +45,6 @@ func prometheusMiddleware(next http.Handler) http.Handler {
 		statusCode := rw.statusCode
 		responseStatus.WithLabelValues(strconv.Itoa(statusCode)).Inc()
 		totalRequests.WithLabelValues(path).Inc()
-
 		timer.ObserveDuration()
 	})
 }
