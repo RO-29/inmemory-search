@@ -71,11 +71,13 @@
 				
 				<option value="file7">bukukas-inmemory-search/cmd/bukukas-inmemory-search/main.go (0.0%)</option>
 				
-				<option value="file8">bukukas-inmemory-search/inmemorycache/cache.go (100.0%)</option>
+				<option value="file8">bukukas-inmemory-search/cmd/bukukas-inmemory-search/prometheus.go (16.0%)</option>
 				
-				<option value="file9">bukukas-inmemory-search/inmemorycache/di.go (100.0%)</option>
+				<option value="file9">bukukas-inmemory-search/inmemorycache/cache.go (100.0%)</option>
 				
-				<option value="file10">bukukas-inmemory-search/inmemorycache/trie.go (96.4%)</option>
+				<option value="file10">bukukas-inmemory-search/inmemorycache/di.go (100.0%)</option>
+				
+				<option value="file11">bukukas-inmemory-search/inmemorycache/trie.go (96.4%)</option>
 				
 				</select>
 			</div>
@@ -635,6 +637,7 @@ func run() error <span class="cov0" title="0">{
         log.Printf("running version: %#v, app: %#v", version, appName)
         flg := getFlags()
         ctx := context.Background()
+        initPromethus()
         dic := newDIContainer(flg)
         err := runHTTPServer(ctx, dic, flg.http)
         if err != nil </span><span class="cov0" title="0">{
@@ -644,7 +647,95 @@ func run() error <span class="cov0" title="0">{
 }
 </pre>
 		
-		<pre class="file" id="file8" style="display: none">package inmemorycache
+		<pre class="file" id="file8" style="display: none">package main
+
+import (
+        "fmt"
+        "log"
+        "net/http"
+        "strconv"
+
+        "github.com/gorilla/mux"
+        "github.com/pkg/errors"
+        "github.com/prometheus/client_golang/prometheus"
+        "github.com/prometheus/client_golang/prometheus/promauto"
+        "github.com/prometheus/client_golang/prometheus/promhttp"
+)
+
+var totalRequests = prometheus.NewCounterVec(
+        prometheus.CounterOpts{
+                Name: "http_requests_total",
+                Help: "Number of total requests.",
+        },
+        []string{"path"},
+)
+
+var responseStatus = prometheus.NewCounterVec(
+        prometheus.CounterOpts{
+                Name: "response_status",
+                Help: "Status of HTTP response",
+        },
+        []string{"status"},
+)
+
+var httpDuration = promauto.NewHistogramVec(prometheus.HistogramOpts{
+        Name: "http_response_time_seconds",
+        Help: "Duration of HTTP requests.",
+}, []string{"path"})
+
+func prometheusMiddleware(next http.Handler) http.Handler <span class="cov0" title="0">{
+        return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) </span><span class="cov0" title="0">{
+                route := mux.CurrentRoute(r)
+                path, _ := route.GetPathTemplate()
+
+                timer := prometheus.NewTimer(httpDuration.WithLabelValues(path))
+                rw := NewResponseWriter(w)
+                next.ServeHTTP(rw, r)
+                statusCode := rw.statusCode
+                responseStatus.WithLabelValues(strconv.Itoa(statusCode)).Inc()
+                totalRequests.WithLabelValues(path).Inc()
+
+                timer.ObserveDuration()
+        }</span>)
+}
+
+func initPromethus() <span class="cov0" title="0">{
+        promRoute := mux.NewRouter()
+        promRoute.Use(prometheusMiddleware)
+        promRoute.Path("/prometheus").Handler(promhttp.Handler())
+        fmt.Println("Serving requests on port :9000 for promethus")
+        go func() </span><span class="cov0" title="0">{
+                _ = http.ListenAndServe(":9000", promRoute)
+        }</span>()
+}
+
+func init() <span class="cov8" title="1">{
+        err := prometheus.Register(totalRequests)
+        if err != nil </span><span class="cov0" title="0">{
+                log.Fatal(errors.Wrap(err, "total requests"))
+        }</span>
+        <span class="cov8" title="1">err = prometheus.Register(responseStatus)
+        if err != nil </span><span class="cov0" title="0">{
+                log.Fatal(errors.Wrap(err, "response status"))
+        }</span>
+}
+
+type responseWriter struct {
+        http.ResponseWriter
+        statusCode int
+}
+
+func NewResponseWriter(w http.ResponseWriter) *responseWriter <span class="cov0" title="0">{
+        return &amp;responseWriter{w, http.StatusOK}
+}</span>
+
+func (rw *responseWriter) WriteHeader(code int) <span class="cov0" title="0">{
+        rw.statusCode = code
+        rw.ResponseWriter.WriteHeader(code)
+}</span>
+</pre>
+		
+		<pre class="file" id="file9" style="display: none">package inmemorycache
 
 import "sync"
 
@@ -706,7 +797,7 @@ func (c *lock) PrefixMatch(prefix string, total int) []string <span class="cov8"
 }</span>
 </pre>
 		
-		<pre class="file" id="file9" style="display: none">package inmemorycache
+		<pre class="file" id="file10" style="display: none">package inmemorycache
 
 // DIContainer is the DI container for inmemory cache.
 type DIContainer struct {
@@ -725,7 +816,7 @@ func NewDIContainer() *DIContainer <span class="cov8" title="1">{
 }</span>
 </pre>
 		
-		<pre class="file" id="file10" style="display: none">package inmemorycache
+		<pre class="file" id="file11" style="display: none">package inmemorycache
 
 // trie Implements the trie DS.
 type trie struct {

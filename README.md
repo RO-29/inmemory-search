@@ -100,7 +100,7 @@ ingress.networking.k8s.io/bukukas-inmemory-ingress unchanged
 service/bukukas-inmemory-http unchanged
 ```
 
-## Prometheus
+## prometheus
 - prometheus folder contains necessary promethus artifacts
 
 ## Postman Code for easy accesibilty

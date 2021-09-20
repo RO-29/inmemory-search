@@ -24,6 +24,7 @@ func run() error {
 	log.Printf("running version: %#v, app: %#v", version, appName)
 	flg := getFlags()
 	ctx := context.Background()
+	initPromethus()
 	dic := newDIContainer(flg)
 	err := runHTTPServer(ctx, dic, flg.http)
 	if err != nil {
