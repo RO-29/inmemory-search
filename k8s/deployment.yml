@@ -28,14 +28,14 @@ spec:
     spec:
       containers:
       - name: bukukas
-        image: gcr.io/test/bukukas-inmemory-search:latest
+        image: localhost:5000/bukukas-inmemory-search:0.1.0
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: FallbackToLogsOnError
         imagePullPolicy: IfNotPresent
         resources:
           requests:
-            cpu: "1000m"
-            memory: "500Mi"
+            cpu: "50m"
+            memory: "50Mi"
           limits:
             cpu: "1000m"
             memory: "1Gi"
