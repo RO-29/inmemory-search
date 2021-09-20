@@ -2,13 +2,9 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
-	"net/http"
 
-	"github.com/gorilla/mux"
 	"github.com/pkg/errors"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 var version = "dev"
@@ -35,13 +31,4 @@ func run() error {
 		return errors.Wrap(err, "HTTP server")
 	}
 	return nil
-}
-
-func initPromethus() {
-	promRoute := mux.NewRouter()
-	promRoute.Path("/prometheus").Handler(promhttp.Handler())
-	fmt.Println("Serving requests on port 9000 for promethus")
-	go func() {
-		_ = http.ListenAndServe(":9000", promRoute)
-	}()
 }
