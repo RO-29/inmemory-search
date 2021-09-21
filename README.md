@@ -62,6 +62,7 @@ of any firewall rules as you see fit
 
 ## Build
 
+- `docker-compose up -d` will run the http path(s) on localhost:8080 and promethus on localhost:9000
 - `make build` puts the binary executable in `$root/build` folder.
 - it's good to run `make lint test` before the make build command to ensure lint and test passes.
 - make `docker-build` generates the docker image in `$root/build` folder.
@@ -101,11 +102,10 @@ service/bukukas-inmemory-http unchanged
 ```
 
 ## prometheus
-- prometheus folder contains necessary promethus artifacts
- 
-	⚠️ Its running in a sepearate port so its not able to collect metrics from main app right now but all setup is done for it ⚠️
+- prometheus folder contains promethus yaml and artifacts
 
-       I didn't wanted to mix prod port with metrics port and couldn't figure out *yet* how to run them on different ports
+![latency sum graph](prometheus/latency_graph.png)
+
 
 ## Postman Code for easy accesibilty
 

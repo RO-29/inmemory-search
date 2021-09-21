@@ -38,7 +38,6 @@ func prometheusMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		route := mux.CurrentRoute(r)
 		path, _ := route.GetPathTemplate()
-
 		timer := prometheus.NewTimer(httpDuration.WithLabelValues(path))
 		rw := NewResponseWriter(w)
 		next.ServeHTTP(rw, r)
@@ -49,13 +48,12 @@ func prometheusMiddleware(next http.Handler) http.Handler {
 	})
 }
 
-func initPromethus() {
-	promRoute := mux.NewRouter()
-	promRoute.Use(prometheusMiddleware)
-	promRoute.Path("/prometheus").Handler(promhttp.Handler())
+func initPromethus(r *mux.Router) {
+	r.Use(prometheusMiddleware)
+	r.Path("/prometheus").Handler(promhttp.Handler())
 	fmt.Println("Serving requests on port :9000 for promethus")
 	go func() {
-		_ = http.ListenAndServe(":9000", promRoute)
+		_ = http.ListenAndServe(":9000", r)
 	}()
 }
 

@@ -57,6 +57,7 @@ func newHTTPRouter(dic *diContainer) (*mux.Router, error) {
 	if err != nil {
 		return nil, errors.Wrap(err, "register")
 	}
+	initPromethus(r)
 	return r, nil
 }
 
