@@ -1,37 +1,12 @@
 # inmemory-search
 In-memory Key Value with prefix / suffix and exact search
 
-
-## Create an in-memory key-value store HTTP API Service which implements:
 - /get/<key> → Return value of the key
 - /set → Post call which sets the key/value pair
 - /search → Search for keys using the following filters
   - Assume you have keys: abc-1, abc-2, xyz-1, xyz-2
-  - /search?prefix=abc would return abc-1 and abc-2
-  - /search?suffix=-1 would return abc-1 and xyz-1
-  - You only need to implement prefix & suffix functionality for search
-
-## Requirements
-- The service should have proper test coverage
-- It should have a Dockerfile
-
-## DevOps Evaluation:
-- If kubernetes experience;
-  - Write deployment spec with 0 downtime deployments, service spec
-and ingress spec
-- Else
-  - Write terraform/ansible to deploy it to VM in a docker container
-  - You can write it for any of the popular cloud providers (GCP, AWS,
-Azure, DigitalOcean etc)
-  - Post deployment the service should be accessible via IP so take care
-of any firewall rules as you see fit
-
-## Bonus points:
-- Write a prometheus exporter as well for your application which measures
-  - latency of each endpoint
-  - http status codes for each endpoint hit
-  - total no. of keys in the DB
-
+  - /search?prefix=abc return abc-1 and abc-2
+  - /search?suffix=-1 return abc-1 and xyz-1
 
 =======================================
 ## Algorithm / Implementation
@@ -48,7 +23,7 @@ of any firewall rules as you see fit
 
 
 ## Scope of Improvements
-- Could have usd adaptive radix tree (compressed trie) to store more efficently
+- Could have used adaptive radix tree (compressed trie) to store more efficently
 - Could have used suffix array to search on all possible pattern and not use 2 "tries"
 - Implement a "delete" to expire the cache
 - Implement LRU / autoTTL key expiry
