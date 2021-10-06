@@ -1,8 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: bukukas-inmemory-ingress
-  namespace: bukukas-inmemory-production
+  name: inmemory-ingress
+  namespace: inmemory-production
 spec:
   rules:
   - http:
@@ -11,10 +11,10 @@ spec:
         pathType: ImplementationSpecific
         backend:
           service:
-            name: bukukas-inmemory
+            name: inmemory
             port:
               number: 80
   tls:
   - hosts:
-    - bukukas-inmemory-search.bukukas.co.id
+    - inmemory-search.in
     secretName: coid

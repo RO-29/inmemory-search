@@ -2,20 +2,20 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: bukukas-inmemory-production
+  name: inmemory-production
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: bukukas-inmemory-http
-  name: bukukas-inmemory-http
-  namespace: bukukas-inmemory-production
+    app: inmemory-http
+  name: inmemory-http
+  namespace: inmemory-production
 spec:
   replicas: 4
   selector:
     matchLabels:
-      app: bukukas-inmemory-http
+      app: inmemory-http
   strategy:
     rollingUpdate:
       maxSurge: 4
@@ -24,11 +24,11 @@ spec:
   template:
     metadata:
       labels:
-        app: bukukas-inmemory-http
+        app: inmemory-http
     spec:
       containers:
-      - name: bukukas
-        image: localhost:5000/bukukas-inmemory-search:0.1.0
+      - name: inmemory
+        image: localhost:5000/inmemory-search:0.1.0
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: FallbackToLogsOnError
         imagePullPolicy: IfNotPresent

@@ -1,4 +1,4 @@
-module bukukas-inmemory-search
+module inmemory-search
 
 go 1.16
 

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"bukukas-inmemory-search/inmemorycache"
+	"inmemory-search/inmemorycache"
 	"net/http"
 
 	"github.com/gorilla/mux"

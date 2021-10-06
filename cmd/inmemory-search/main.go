@@ -10,7 +10,7 @@ import (
 var version = "dev"
 
 const (
-	appName = "bukukas-inmemory-search"
+	appName = "inmemory-search"
 )
 
 func main() {

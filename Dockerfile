@@ -10,8 +10,8 @@ RUN set -ex &&\
  apt-get update &&\
  DEBIAN_FRONTEND=noninteractive apt-get install -y ca-certificates tzdata &&\
  rm -rf /var/lib/apt/lists/*
-WORKDIR /data/bukukas-inmemory-search
+WORKDIR /data/inmemory-search
 EXPOSE 8080 9000
-ENTRYPOINT ["/data/bukukas-inmemory-search/bukukas-inmemory-search"]
+ENTRYPOINT ["/data/inmemory-search/inmemory-search"]
 COPY . /app
-COPY --from=builder /app/build/* /data/bukukas-inmemory-search/
+COPY --from=builder /app/build/* /data/inmemory-search/

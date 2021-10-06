@@ -1,4 +1,4 @@
-# bukukas-inmemory-search
+# inmemory-search
 In-memory Key Value with prefix / suffix and exact search
 
 
@@ -78,7 +78,7 @@ of any firewall rules as you see fit
 - this folder contains the inmemroy cache package logic
 
 ## cmd
-- `main` http service is inside the `cmd/bukukas-inmemory-search`
+- `main` http service is inside the `cmd/inmemory-search`
 
 ## Kubernetes Specs
 - k8s folder contains all the specs file as asked
@@ -95,10 +95,10 @@ Server Version: version.Info{Major:"1", Minor:"22", GitVersion:"v1.22.1", GitCom
 kubectl apply -f k8s/
 
 
-namespace/bukukas-inmemory-production unchanged
-deployment.apps/bukukas-inmemory-http configured
-ingress.networking.k8s.io/bukukas-inmemory-ingress unchanged
-service/bukukas-inmemory-http unchanged
+namespace/inmemory-production unchanged
+deployment.apps/inmemory-http configured
+ingress.networking.k8s.io/inmemory-ingress unchanged
+service/inmemory-http unchanged
 ```
 
 ## prometheus
